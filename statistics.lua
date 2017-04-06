@@ -1,5 +1,5 @@
 -- statistics.lua
-ngx.say("dhahdlsahld")
+
 local access = ngx.shared.access
 local args = ngx.req.get_uri_args()
 local uri = args["uri"]
