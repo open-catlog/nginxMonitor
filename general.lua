@@ -2,17 +2,18 @@
 
 local access = ngx.shared.access
 local uri = ngx.var.uri
+local host = ngx.var.host
 local request_time = ngx.var.request_time
 
 -- 存储的过期时间，若为0，则永远不过期
-local expire_time = 3600
+local expire_time = 15 * 60
 
 -- 请求时间
-local req_time_key = table.concat({uri, ":request_time"})
+local req_time_key = table.concat({host, ":", uri, ":request_time"})
 -- 请求总数
-local total_req_key = table.concat({uri, ":request_count"})
+local total_req_key = table.concat({host, ":", uri, ":request_count"})
 -- 平均响应时间
-local average_time_key = table.concat({uri, ":average_request_time"})
+local average_time_key = table.concat({host, ":", uri, ":average_request_time"})
 
 -- 计算特定uri的请求次数
 local count_req_sum = access:get(total_req_key) or 0
