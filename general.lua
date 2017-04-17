@@ -3,6 +3,7 @@
 local access = ngx.shared.access
 local uri = ngx.var.uri
 local host = ngx.var.host
+local ip = ngx.var.remote_addr
 local request_time = ngx.var.request_time
 local isFilter = false
 local find = string.find
@@ -24,6 +25,8 @@ if isFilter == false then
   local total_req_key = table.concat({host, ":", uri, ":request_count"})
   -- 平均响应时间
   local average_time_key = table.concat({host, ":", uri, ":average_request_time"})
+  -- 客户端ip
+  local page_view_key = table.concat({host, ":", ip, ":page_view"})
 
   -- 计算特定uri的请求次数
   local count_req_sum = access:get(total_req_key) or 0
@@ -38,4 +41,9 @@ if isFilter == false then
   -- 计算特定uri的平均响应时间
   local time_req_ave = time_req_sum / count_req_sum
   access:set(average_time_key, time_req_ave, expire_time)
+
+  -- 计算每个ip的pv
+  local page_view_sum = access:get(page_view_key) or 0
+  page_view_sum = page_view_sum + 1
+  access:set(page_view_key, page_view_sum, expire_time)
 end
