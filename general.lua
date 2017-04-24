@@ -17,7 +17,7 @@ end
 
 if isFilter == false then
   -- 存储的过期时间，若为0，则永远不过期
-  local expire_time = 15 * 60
+  local expire_time = 0
 
   -- 请求时间
   local req_time_key = table.concat({host, ":", uri, ":request_time"})
