@@ -2,7 +2,8 @@
 
 local access = ngx.shared.access
 local args = ngx.req.get_uri_args()
-local keys = access:get_keys()
+-- 获取所有的key值，默认获取1024条
+local keys = access:get_keys(0)
 
 for i = 1, #keys do
   local key = keys[i]
