@@ -15,7 +15,7 @@ for k, v in ipairs(filter) do
   end
 end
 
-if isFilter == false then
+if isFilter == true then
   -- 存储的过期时间，若为0，则永远不过期
   local expire_time = 0
 
