@@ -10,5 +10,3 @@ for i = 1, #keys do
   local val = access:get(key) or 0
   ngx.say(key, ":" ,val)
 end
-
-access:flush_all()
